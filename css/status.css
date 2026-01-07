@@ -1,0 +1,9 @@
+.status-open { color: #EF4444; }
+.status-answered { color: #F59E0B; }
+.status-closed { color: #10B981; }
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
