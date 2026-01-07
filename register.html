@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,15 +10,22 @@
 
 <div class="card" style="max-width:400px;margin:80px auto;">
   <h2>Create Account</h2><br>
-  <input class="input" placeholder="Full Name">
-  <input class="input" placeholder="Email">
-  <input class="input" type="password" placeholder="Password">
-  <select class="input">
-    <option>Builder</option>
-    <option>Contractor</option>
+
+  <input id="name" class="input" placeholder="Full Name">
+  <input id="email" class="input" placeholder="Email">
+  <input id="password" type="password" class="input" placeholder="Password">
+
+  <select id="role" class="input">
+    <option value="builder">Builder</option>
+    <option value="contractor">Contractor</option>
   </select>
-  <button class="btn-primary" style="width:100%">Create Account</button>
+
+  <button class="btn-primary" style="width:100%" onclick="registerUser()">
+    Create Account
+  </button>
 </div>
 
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
 </body>
 </html>
