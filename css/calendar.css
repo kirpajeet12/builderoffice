@@ -1,0 +1,17 @@
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.calendar-day {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  min-height: 90px;
+  padding: 6px;
+  font-size: 12px;
+}
+
+.todo-section h4 {
+  margin-bottom: 6px;
+}
