@@ -1,0 +1,28 @@
+.gantt {
+  overflow-x: auto;
+}
+
+.gantt-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.gantt-label {
+  width: 220px;
+  font-size: 14px;
+}
+
+.gantt-track {
+  position: relative;
+  height: 24px;
+  background: #E5E7EB;
+  flex: 1;
+  border-radius: 4px;
+}
+
+.gantt-bar {
+  position: absolute;
+  height: 100%;
+  border-radius: 4px;
+}
