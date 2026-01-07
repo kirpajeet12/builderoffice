@@ -9,28 +9,19 @@
 </head>
 <body>
 
+<script src="js/guard.js"></script>
+
 <div class="app">
 
-  <!-- Sidebar -->
   <aside class="sidebar">
     <h2>Builder Office</h2>
-    <nav>
-      <a href="#" onclick="route('dashboard')">Dashboard</a>
-      <a href="#" onclick="route('tasks')">Tasks</a>
-      <a href="#" onclick="route('gantt')">Gantt</a>
-      <a href="#" onclick="route('calendar')">Calendar</a>
-      <a href="#" onclick="route('rfis')">RFIs</a>
-      <a href="#" onclick="route('budget')">Budget</a>
-      <a href="#" onclick="route('team')">Team</a>
-      <a href="#">Logout</a>
-    </nav>
+    <nav id="nav"></nav>
   </aside>
 
-  <!-- Main -->
   <section>
     <div class="topbar">
       <strong>Langley Townhouse</strong>
-      <span>User (Builder)</span>
+      <span id="userInfo"></span>
     </div>
 
     <div class="main" id="view"></div>
@@ -39,5 +30,38 @@
 </div>
 
 <script src="js/router.js"></script>
+<script src="js/auth.js"></script>
+
+<script>
+  const user = JSON.parse(localStorage.getItem("session"));
+  document.getElementById("userInfo").innerText =
+    `${user.name} (${user.role})`;
+
+  const nav = document.getElementById("nav");
+
+  if (user.role === "builder") {
+    nav.innerHTML = `
+      <a onclick="route('dashboard')">Dashboard</a>
+      <a onclick="route('tasks')">Tasks</a>
+      <a onclick="route('gantt')">Gantt</a>
+      <a onclick="route('calendar')">Calendar</a>
+      <a onclick="route('rfis')">RFIs</a>
+      <a onclick="route('budget')">Budget</a>
+      <a onclick="route('team')">Team</a>
+      <a onclick="logout()">Logout</a>
+    `;
+  } else {
+    nav.innerHTML = `
+      <a onclick="route('dashboard')">Dashboard</a>
+      <a onclick="route('tasks')">My Tasks</a>
+      <a onclick="route('calendar')">Calendar</a>
+      <a onclick="route('rfis')">RFIs</a>
+      <a onclick="logout()">Logout</a>
+    `;
+  }
+
+  route("dashboard");
+</script>
+
 </body>
 </html>
