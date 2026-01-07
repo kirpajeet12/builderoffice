@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Builder Office</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h2>Builder Office</h2>
+    <nav>
+      <a href="#" onclick="route('dashboard')">Dashboard</a>
+      <a href="#" onclick="route('tasks')">Tasks</a>
+      <a href="#" onclick="route('gantt')">Gantt</a>
+      <a href="#" onclick="route('calendar')">Calendar</a>
+      <a href="#" onclick="route('rfis')">RFIs</a>
+      <a href="#" onclick="route('budget')">Budget</a>
+      <a href="#" onclick="route('team')">Team</a>
+      <a href="#">Logout</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <section>
+    <div class="topbar">
+      <strong>Langley Townhouse</strong>
+      <span>User (Builder)</span>
+    </div>
+
+    <div class="main" id="view"></div>
+  </section>
+
+</div>
+
+<script src="js/router.js"></script>
+</body>
+</html>
