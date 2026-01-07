@@ -1,0 +1,41 @@
+.app {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  background: var(--primary);
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  margin-bottom: 30px;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 10px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+}
+
+.sidebar nav a:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.topbar {
+  height: 60px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: white;
+}
+
+.main {
+  padding: 20px;
+  overflow-y: auto;
+}
