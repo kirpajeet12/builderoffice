@@ -14,8 +14,21 @@
 </head>
 <body>
 
+<!-- Route protection -->
 <script src="js/guard.js"></script>
 
+<!-- Core data layer -->
+<script src="js/storage.js"></script>
+
+<!-- Feature logic -->
+<script src="js/activity.js"></script>
+<script src="js/budget.js"></script>
+<script src="js/projects.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/rfi.js"></script>
+<script src="js/si.js"></script>
+
+<!-- Views -->
 <script src="js/gantt.js"></script>
 <script src="js/calendar.js"></script>
 
@@ -28,7 +41,7 @@
 
   <section>
     <div class="topbar">
-      <strong>Langley Townhouse</strong>
+      <strong id="projectTitle">Langley Townhouse</strong>
       <span id="userInfo"></span>
     </div>
 
@@ -37,11 +50,17 @@
 
 </div>
 
+<!-- Router MUST come after everything -->
 <script src="js/router.js"></script>
 <script src="js/auth.js"></script>
 
 <script>
   const user = JSON.parse(localStorage.getItem("session"));
+
+  if (!user) {
+    window.location.href = "index.html";
+  }
+
   document.getElementById("userInfo").innerText =
     `${user.name} (${user.role})`;
 
@@ -72,4 +91,5 @@
 </script>
 
 </body>
+
 </html>
