@@ -1,29 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Builder Office | Login</title>
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/components.css">
+  <title>AI Field Review</title>
+  <style>
+    body { font-family: Arial; background:#f4f6f8; padding:20px }
+    .box { background:#fff; padding:15px; margin-bottom:15px; border-radius:6px }
+    textarea { width:100%; min-height:70px }
+    button { padding:10px 15px; cursor:pointer }
+    .image { border:1px solid #ccc; padding:10px; margin-top:10px }
+  </style>
 </head>
 <body>
 
-<div class="card" style="max-width:400px;margin:120px auto;">
-  <h2>Login</h2><br>
+<h2>AI Field Review</h2>
 
-  <input id="email" class="input" placeholder="Email">
-  <input id="password" type="password" class="input" placeholder="Password">
+<div class="box">
+  Discipline:
+  <select id="discipline">
+    <option>Electrical</option>
+    <option>Plumbing</option>
+    <option>Envelope</option>
+  </select>
 
-  <button class="btn-primary" style="width:100%" onclick="loginUser()">
-    Login
-  </button>
+  Stage:
+  <select id="stage">
+    <option>Rough-In</option>
+    <option>Final</option>
+  </select>
 
-  <p style="margin-top:10px">
-    No account? <a href="register.html">Register</a>
-  </p>
+  <br><br>
+  <input type="file" id="photos" multiple accept="image/*">
+  <br><br>
+  <button onclick="analyze()">Scan Photos</button>
 </div>
 
-<script src="js/storage.js"></script>
-<script src="js/auth.js"></script>
+<div class="box">
+  <h3>AI Results (Editable)</h3>
+  <div id="results"></div>
+</div>
+
+<button onclick="generateReport()">Generate Report</button>
+
+<script>
+let aiData = null;
+
+async function analyze() {
+  const files = document.getElementById("photos").files;
+  if (!files.length) return alert("Upload photos");
+
+  const fd = new FormData();
+  fd.append("discipline", discipline.value);
+  fd.append("stage", stage.value);
+  for (let f of files) fd.append("photos", f);
+
+  const res = await fetch("/analyze", { method:"POST", body:fd });
+  aiData = await res.json();
+
+  const r = document.getElementById("results");
+  r.innerHTML = "";
+
+  aiData.images.forEach((img,i)=>{
+    r.innerHTML += `
+      <div class="image">
+        <b>Image ${i+1}</b><br>
+        <textarea>${img.description}</textarea>
+        <b>Observations</b>
+        <textarea>${img.observations.join("\n")}</textarea>
+        <b>Deficiencies</b>
+        <textarea>${img.deficiencies.join("\n")}</textarea>
+      </div>`;
+  });
+}
+
+async function generateReport(){
+  if(!aiData) return alert("Scan first");
+
+  const res = await fetch("/report",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(aiData)
+  });
+
+  const blob = await res.blob();
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "field-review-report.txt";
+  a.click();
+}
+</script>
+
 </body>
 </html>
